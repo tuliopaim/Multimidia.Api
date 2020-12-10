@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Multimidia.Api.Core.InputModels;
 using Multimidia.Api.Core.Models;
 using Multimidia.Api.Core.ViewModel;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
@@ -44,9 +45,11 @@ namespace Multimidia.Api.Controllers
         }
 
         [HttpPost]
-        public async Task Cadastrar(Video video)
+        public async Task Cadastrar(NovoVideoInputModel videoInput)
         {
             var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+
+            var video = videoInput.ToVideo();
 
             video.IdUsuario = new Guid(user);
 

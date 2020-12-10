@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Multimidia.Api.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,5 +26,7 @@ namespace Multimidia.Api.Core.InputModels
         [Required]
         [MaxLength(64)]
         public string Categoria { get; set; }
+
+        public Video ToVideo() => new Video(Nome, Sinopse, Video64, Thumbnail64, Categoria);
     }
 }

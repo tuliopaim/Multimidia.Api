@@ -8,6 +8,19 @@ namespace Multimidia.Api.Core.Models
 {
     public class Video : EntidadeBase
     {
+        public Video()
+        {
+
+        }
+        public Video(string nome, string sinopse, string video64, string thumbnail64, string categoria)
+        {
+            Nome = nome;
+            Sinopse = sinopse;
+            Video64 = video64;
+            Thumbnail64 = thumbnail64;
+            Categoria = categoria;
+        }
+
         [Required]
         [MaxLength(64)]
         public string Nome { get; set; }
