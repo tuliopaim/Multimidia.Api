@@ -25,6 +25,11 @@ namespace Multimidia.Api.Controllers
         [Route("login")]
         public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            } 
+
             try
             {
                 var user = await _authService.Autenticar(model.Username, model.Password);
@@ -54,6 +59,11 @@ namespace Multimidia.Api.Controllers
         [Route("register")]
         public async Task<ActionResult> Registrar([FromBody] RegisterInputModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 var userModel = new User
