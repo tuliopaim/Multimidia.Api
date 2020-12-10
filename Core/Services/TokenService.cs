@@ -5,10 +5,9 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Multimidia.Api.Core;
 using Multimidia.Api.Core.Models;
 
-namespace Multimidia.Api.Services
+namespace Multimidia.Api.Core.Services
 {
     public class TokenService
     {

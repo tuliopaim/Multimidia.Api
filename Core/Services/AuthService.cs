@@ -1,10 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Multimidia.Api.Core.Models;
-using Multimidia.Api.Infrastructure.Repository;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
 
-namespace Multimidia.Api.Services
+namespace Multimidia.Api.Core.Services
 {
     public class AuthService
     {

@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Multimidia.Api.Core.Models;
+using Multimidia.Api.Data.Infrastructure;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Multimidia.Api.Infrastructure.Repository

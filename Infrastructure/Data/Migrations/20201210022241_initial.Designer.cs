@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Multimidia.Api.Data.Infrastructure;
 using Multimidia.Api.Infrastructure;
 
 namespace Multimidia.Api.Migrations
 {
     [DbContext(typeof(MultimidiaDbContext))]
-    [Migration("20201210030257_UsuarioIdGuid")]
-    partial class UsuarioIdGuid
+    [Migration("20201210022241_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,8 +65,8 @@ namespace Multimidia.Api.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("IdUsuario")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()

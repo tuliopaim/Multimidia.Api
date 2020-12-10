@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Multimidia.Api.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Multimidia.Api.Infrastructure
+namespace Multimidia.Api.Data.Infrastructure
 {
     public class MultimidiaDbContext : DbContext
     {

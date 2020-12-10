@@ -9,10 +9,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Multimidia.Api.Core;
-using Multimidia.Api.Infrastructure;
+using Multimidia.Api.Core.Services;
+using Multimidia.Api.Data.Infrastructure;
 using Multimidia.Api.Infrastructure.Repository;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
-using Multimidia.Api.Services;
 
 namespace Multimidia.Api
 {

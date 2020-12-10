@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Multimidia.Api.Core.Models;
 using Multimidia.Api.Core.ViewModels;
 using Multimidia.Api.Infrastructure.Repository;
-using Multimidia.Api.Services;
+using Multimidia.Api.Core.Services;
 
 namespace Multimidia.Api.Controllers
 {
