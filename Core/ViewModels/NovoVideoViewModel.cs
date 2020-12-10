@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Multimidia.Api.Core.Models
+namespace Multimidia.Api.Core.ViewModels
 {
-    public class Video : EntidadeBase
+    public class NovoVideoViewModel
     {
         [Required]
         [MaxLength(64)]
@@ -25,9 +25,5 @@ namespace Multimidia.Api.Core.Models
         [Required]
         [MaxLength(64)]
         public string Categoria { get; set; }
-
-
-        public Guid IdUsuario { get; set; }
-        public User Usuario { get; set; }
     }
 }

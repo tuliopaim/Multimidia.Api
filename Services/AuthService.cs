@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Multimidia.Api.Core.Models;
 using Multimidia.Api.Infrastructure.Repository;
+using Multimidia.Api.Infrastructure.Repository.Interfaces;
 
 namespace Multimidia.Api.Services
 {
@@ -16,7 +17,7 @@ namespace Multimidia.Api.Services
         public async Task<User> Autenticar(string username, string password)
         {
             // Recupera o usuário
-            var user = await _userRepository.Get(username);
+            var user = await _userRepository.GetByUserName(username);
 
             // Verifica se o usuário existe
             if (user == null)
@@ -31,7 +32,7 @@ namespace Multimidia.Api.Services
 
         public async Task<User> Criar(User user, string password)
         {
-            if (await _userRepository.UsuarioExiste(user.Username))
+            if (await _userRepository.UsernameExiste(user.Username))
                 throw new Exception("Usuario de mesmo username já cadastrado!");
 
             byte[] passwordHash, passwordSalt;

@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Multimidia.Api.Core;
 using Multimidia.Api.Infrastructure;
 using Multimidia.Api.Infrastructure.Repository;
+using Multimidia.Api.Infrastructure.Repository.Interfaces;
 using Multimidia.Api.Services;
 
 namespace Multimidia.Api
@@ -65,7 +66,8 @@ namespace Multimidia.Api
             services.AddScoped<AuthService>();
             services.AddScoped<TokenService>();
 
-            services.AddSingleton<IUserRepository, FakeUserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IVideoRepository, VideoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
