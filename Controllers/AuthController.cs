@@ -38,6 +38,7 @@ namespace Multimidia.Api.Controllers
                 return new
                 {
                     username = user.Username,
+                    role = user.Role,
                     token = token
                 };
 
@@ -57,7 +58,8 @@ namespace Multimidia.Api.Controllers
                 var userModel = new User
                 {
                     Username = model.Username,
-                    Password = model.Password
+                    Password = model.Password,
+                    Role = model.Role
                 };
 
                 var user = await _authService.Criar(userModel, model.Password);
