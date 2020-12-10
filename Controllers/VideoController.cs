@@ -21,39 +21,75 @@ namespace Multimidia.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<Video> Obter(Guid id)
+        public async Task<ActionResult<Video>> Obter(Guid id)
         {
-            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+            try
+            {
+                var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 
-            return await _videoRepository.Obter(new Guid(user), id);
+                return Ok(await _videoRepository.Obter(new Guid(user), id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Mensagem = ex.Message });
+            }
         }
 
         [HttpGet("listar")]
-        public async Task<IEnumerable<VideoPartialViewModel>> Listar()
+        public async Task<ActionResult<IEnumerable<VideoPartialViewModel>>> Listar()
         {
-            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+            try
+            {
+                var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 
-            return await _videoRepository.Listar(new Guid(user));
+                return Ok(await _videoRepository.Listar(new Guid(user)));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { Mensagem = ex.Message });
+            }
+
         }
 
         [HttpGet("filtrar-por-categoria")]
-        public async Task<IEnumerable<VideoPartialViewModel>> FiltrarPorCategoria(string categoria)
+        public async Task<ActionResult<IEnumerable<VideoPartialViewModel>>> FiltrarPorCategoria(string categoria)
         {
-            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+            try
+            {
+                var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 
-            return await _videoRepository.FiltrarPorCategoria(new Guid(user), categoria);
+                return Ok(await _videoRepository.FiltrarPorCategoria(new Guid(user), categoria));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { Mensagem = ex.Message });
+            }            
         }
 
         [HttpPost]
-        public async Task Cadastrar(NovoVideoInputModel videoInput)
+        public async Task<ActionResult> Cadastrar(NovoVideoInputModel videoInput)
         {
-            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            var video = videoInput.ToVideo();
+            try
+            {
+                var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 
-            video.IdUsuario = new Guid(user);
+                var video = videoInput.ToVideo();
 
-            await _videoRepository.CadastrarVideo(video);
+                video.IdUsuario = new Guid(user);
+
+                await _videoRepository.CadastrarVideo(video);
+
+                return Ok(new { Mensagem = "Video cadastrado com sucesso!" });
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { Mensagem = ex.Message });
+            }
         }
     }
 }
