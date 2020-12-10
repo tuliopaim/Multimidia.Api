@@ -1,4 +1,5 @@
 ﻿using Multimidia.Api.Core.Models;
+using Multimidia.Api.Core.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace Multimidia.Api.Infrastructure.Repository.Interfaces
 
         Task<Video> Obter(Guid idUsuario, Guid id);
 
-        Task<IEnumerable<Video>> Listar(Guid idUsuario);
+        Task<IEnumerable<VideoPartialViewModel>> Listar(Guid idUsuario);
 
-        Task<IEnumerable<Video>> FiltrarPorCategoria(Guid idUsuario, string categoria);
+        Task<IEnumerable<VideoPartialViewModel>> FiltrarPorCategoria(Guid idUsuario, string categoria);
     }
 }

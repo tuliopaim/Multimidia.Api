@@ -2,9 +2,10 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Multimidia.Api.Core.Models;
-using Multimidia.Api.Core.ViewModels;
+using Multimidia.Api.Core.InputModels;
 using Multimidia.Api.Infrastructure.Repository;
 using Multimidia.Api.Core.Services;
+using Multimidia.Api.Core.ViewModel;
 
 namespace Multimidia.Api.Controllers
 {
@@ -22,7 +23,7 @@ namespace Multimidia.Api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginViewModel model)
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel model)
         {
             try
             {
@@ -35,11 +36,11 @@ namespace Multimidia.Api.Controllers
                 var token = _tokenService.GenerateToken(user);
 
                 // Retorna os dados
-                return Ok(new
+                return Ok(new UsuarioViewModel
                 {
-                    username = user.Username,
-                    role = user.Role,
-                    token = token
+                    Username = user.Username,
+                    Role = user.Role,
+                    Token = token 
                 });
 
             }
@@ -51,7 +52,7 @@ namespace Multimidia.Api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> Registrar([FromBody] RegisterViewModel model)
+        public async Task<ActionResult> Registrar([FromBody] RegisterInputModel model)
         {
             try
             {

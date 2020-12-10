@@ -1,6 +1,6 @@
-namespace Multimidia.Api.Core.ViewModels
+namespace Multimidia.Api.Core.InputModels
 {
-    public class LoginViewModel
+    public class LoginInputModel
     {
         public string Username { get; set; }
         public string Password { get; set; }

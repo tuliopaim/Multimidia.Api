@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Multimidia.Api.Core.Models;
+using Multimidia.Api.Core.ViewModel;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Multimidia.Api.Controllers
         }
 
         [HttpGet("listar")]
-        public async Task<IEnumerable<Video>> Listar()
+        public async Task<IEnumerable<VideoPartialViewModel>> Listar()
         {
             var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 
@@ -35,7 +36,7 @@ namespace Multimidia.Api.Controllers
         }
 
         [HttpGet("filtrar-por-categoria")]
-        public async Task<IEnumerable<Video>> FiltrarPorCategoria(string categoria)
+        public async Task<IEnumerable<VideoPartialViewModel>> FiltrarPorCategoria(string categoria)
         {
             var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 

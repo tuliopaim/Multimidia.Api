@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Multimidia.Api.Core.ViewModels
+namespace Multimidia.Api.Core.InputModels
 {
-    public class NovoVideoViewModel
+    public class NovoVideoInputModel
     {
         [Required]
         [MaxLength(64)]

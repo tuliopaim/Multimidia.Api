@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Multimidia.Api.Core.Models;
+using Multimidia.Api.Core.ViewModel;
 using Multimidia.Api.Data.Infrastructure;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
 using System;
@@ -23,18 +24,30 @@ namespace Multimidia.Api.Infrastructure.Repository
                 .AsNoTracking()
                 .FirstOrDefaultAsync(v => v.IdUsuario == idUsuario && v.Id == id);
         }
-        public async Task<IEnumerable<Video>> Listar(Guid idUsuario)
+        public async Task<IEnumerable<VideoPartialViewModel>> Listar(Guid idUsuario)
         {
             return await _context.Videos
                 .AsNoTracking()
                 .Where(v => v.IdUsuario == idUsuario)
+                .Select(v => new VideoPartialViewModel 
+                {   
+                    Nome = v.Nome, 
+                    Sinopse = v.Categoria,
+                    Descricao = v.Sinopse
+                })
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Video>> FiltrarPorCategoria(Guid idUsuario, string categoria)
+        public async Task<IEnumerable<VideoPartialViewModel>> FiltrarPorCategoria(Guid idUsuario, string categoria)
         {
             return await _context.Videos
               .AsNoTracking()
               .Where(v => v.IdUsuario == idUsuario && v.Categoria == categoria)
+              .Select(v => new VideoPartialViewModel
+              {
+                  Nome = v.Nome,
+                  Sinopse = v.Categoria,
+                  Descricao = v.Sinopse
+              })
               .ToListAsync();
         }
 
