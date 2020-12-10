@@ -31,6 +31,7 @@ namespace Multimidia.Api.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim("user_id", user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Username.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
