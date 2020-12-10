@@ -29,23 +29,23 @@ namespace Multimidia.Api.Controllers
                 var user = await _authService.Autenticar(model.Username, model.Password);
 
                 if (user == null)
-                    return new { mensagem = "Usuário ou senha inválidos!" };
+                    return BadRequest(new { mensagem = "Usuário ou senha inválidos!" });
 
                 // Gera o Token
                 var token = _tokenService.GenerateToken(user);
 
                 // Retorna os dados
-                return new
+                return Ok(new
                 {
                     username = user.Username,
                     role = user.Role,
                     token = token
-                };
+                });
 
             }
             catch (Exception ex)
             {
-                return new { mensagem = ex.Message };
+                return BadRequest(new { mensagem = ex.Message });
             }
         }
 
