@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Multimidia.Api.Controllers
 {
+    [Authorize]
     [Route("v1/[Controller]")]
     public class VideoController : Controller
     {
