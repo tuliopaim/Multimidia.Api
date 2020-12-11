@@ -16,6 +16,7 @@ namespace Multimidia.Api.Core.Models
         [Required]
         [MaxLength(24)]
         public string Role { get; set; }
+        public bool isLoggedIn { get; set; }
 
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
