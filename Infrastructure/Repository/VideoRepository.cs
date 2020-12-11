@@ -22,13 +22,13 @@ namespace Multimidia.Api.Infrastructure.Repository
         {
             return await _context.Videos
                 .AsNoTracking()
-                .FirstOrDefaultAsync(v => v.IdUsuario == idUsuario && v.Id == id);
+                .FirstOrDefaultAsync(v => v.UsuarioId == idUsuario && v.Id == id);
         }
         public async Task<IEnumerable<VideoPartialViewModel>> Listar(Guid idUsuario)
         {
             return await _context.Videos
                 .AsNoTracking()
-                .Where(v => v.IdUsuario == idUsuario)
+                .Where(v => v.UsuarioId == idUsuario)
                 .Select(v => new VideoPartialViewModel 
                 {   
                     Nome = v.Nome, 
@@ -41,7 +41,7 @@ namespace Multimidia.Api.Infrastructure.Repository
         {
             return await _context.Videos
               .AsNoTracking()
-              .Where(v => v.IdUsuario == idUsuario && v.Categoria == categoria)
+              .Where(v => v.UsuarioId == idUsuario && v.Categoria == categoria)
               .Select(v => new VideoPartialViewModel
               {
                   Nome = v.Nome,

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Multimidia.Api.Core.InputModels;
 using Multimidia.Api.Core.Models;
@@ -12,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace Multimidia.Api.Controllers
 {
-    [Authorize]
     [Route("v1/[Controller]")]
     public class VideoController : Controller
     {
@@ -72,7 +72,7 @@ namespace Multimidia.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Cadastrar(NovoVideoInputModel videoInput)
+        public async Task<ActionResult> Cadastrar([FromForm] IFormCollection files)
         {
             if (!ModelState.IsValid)
             {
@@ -80,20 +80,25 @@ namespace Multimidia.Api.Controllers
             }
             try
             {
+                var parametros = Request.Form.ToDictionary(x => x.Key, x => x.Value);
+                var arquivos = Request.Form.Files;
+
                 var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 
-                var videoViewModel = await _fileService.FormFileToFileViewModel(videoInput.FormFileVideo);
+                var videoViewModel = await _fileService.FormFileToFileViewModel(arquivos.GetFile("Video"));
 
-                var imageViewModel = await _fileService.FormFileToFileViewModel(videoInput.FormFileImagem);
+                var imageViewModel = await _fileService.FormFileToFileViewModel(arquivos.GetFile("Imagem"));
 
                 var video = new Video(
-                    videoInput.Nome,
-                    videoInput.Sinopse,
-                    videoInput.Categoria,
+                    parametros["Nome"],
+                    parametros["Sinopse"],
+                    parametros["Categoria"],
                     videoViewModel.Base64,
-                    videoViewModel.ContentType,
+                    parametros["ContentTypeVideo"],
                     imageViewModel.Base64,
-                    imageViewModel.ContentType);
+                    parametros["ContentTypeImagem"]);
+
+                video.UsuarioId = new Guid(user);
 
                 await _videoRepository.CadastrarVideo(video);
 

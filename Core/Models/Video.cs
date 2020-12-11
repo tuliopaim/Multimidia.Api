@@ -45,8 +45,8 @@ namespace Multimidia.Api.Core.Models
         [MaxLength(64)]
         public string Categoria { get; set; }
 
-
-        public Guid IdUsuario { get; set; }
+        [Required]
+        public Guid UsuarioId { get; set; }
         public User Usuario { get; set; }
     }
 }
