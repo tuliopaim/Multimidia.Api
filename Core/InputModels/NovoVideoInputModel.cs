@@ -1,4 +1,5 @@
-﻿using Multimidia.Api.Core.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Multimidia.Api.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,16 +18,13 @@ namespace Multimidia.Api.Core.InputModels
         [MaxLength(500)]
         public string Sinopse { get; set; }
 
-        [Required]
-        public string Video64 { get; set; }
+        public IFormFile FormFileVideo { get; set; }
 
-        [Required]
-        public string Thumbnail64 { get; set; }
+        public IFormFile FormFileImagem { get; set; }
 
         [Required]
         [MaxLength(64)]
         public string Categoria { get; set; }
 
-        public Video ToVideo() => new Video(Nome, Sinopse, Video64, Thumbnail64, Categoria);
     }
 }

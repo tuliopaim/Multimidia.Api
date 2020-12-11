@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Multimidia.Api.Core.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,12 +13,15 @@ namespace Multimidia.Api.Core.Models
         {
 
         }
-        public Video(string nome, string sinopse, string video64, string thumbnail64, string categoria)
+
+        public Video(string nome, string sinopse, string categoria, string video64, string videoContentType, string thumbnail64, string thumbnailContentType)
         {
             Nome = nome;
             Sinopse = sinopse;
             Video64 = video64;
+            VideoContentType = videoContentType;
             Thumbnail64 = thumbnail64;
+            ThumbnailContentType = thumbnailContentType;
             Categoria = categoria;
         }
 
@@ -29,11 +33,13 @@ namespace Multimidia.Api.Core.Models
         [MaxLength(500)]
         public string Sinopse { get; set; }
 
-        [Required]
         public string Video64 { get; set; }
 
-        [Required]
+        public string VideoContentType { get; set; }
+
         public string Thumbnail64 { get; set; }
+
+        public string ThumbnailContentType { get; set; }
 
         [Required]
         [MaxLength(64)]

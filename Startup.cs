@@ -65,6 +65,7 @@ namespace Multimidia.Api
 
             services.AddScoped<AuthService>();
             services.AddScoped<TokenService>();
+            services.AddTransient<FileService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();

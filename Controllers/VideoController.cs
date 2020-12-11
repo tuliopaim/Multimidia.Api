@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Multimidia.Api.Core.InputModels;
 using Multimidia.Api.Core.Models;
+using Multimidia.Api.Core.Services;
 using Multimidia.Api.Core.ViewModels;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
 using System;
@@ -16,10 +17,12 @@ namespace Multimidia.Api.Controllers
     public class VideoController : Controller
     {
         private readonly IVideoRepository _videoRepository;
+        private readonly FileService _fileService;
 
-        public VideoController(IVideoRepository videoRepository)
+        public VideoController(IVideoRepository videoRepository, FileService fileService )
         {
             _videoRepository = videoRepository;
+            _fileService = fileService;
         }
 
         [HttpGet]
@@ -69,20 +72,28 @@ namespace Multimidia.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> Cadastrar(NovoVideoInputModel videoInput)
+        public async Task<ActionResult> Cadastrar(NovoVideoInputModel videoInput)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
                 var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
 
-                var video = videoInput.ToVideo();
+                var videoViewModel = await _fileService.FormFileToFileViewModel(videoInput.FormFileVideo);
 
-                video.IdUsuario = new Guid(user);
+                var imageViewModel = await _fileService.FormFileToFileViewModel(videoInput.FormFileImagem);
+
+                var video = new Video(
+                    videoInput.Nome,
+                    videoInput.Sinopse,
+                    videoInput.Categoria,
+                    videoViewModel.Base64,
+                    videoViewModel.ContentType,
+                    imageViewModel.Base64,
+                    imageViewModel.ContentType);
 
                 await _videoRepository.CadastrarVideo(video);
 
