@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Multimidia.Api.Core.InputModels;
 using Multimidia.Api.Core.Models;
-using Multimidia.Api.Core.ViewModel;
+using Multimidia.Api.Core.ViewModels;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Multimidia.Api.Controllers
 {
+    [Authorize]
     [Route("v1/[Controller]")]
     public class VideoController : Controller
     {
@@ -67,7 +69,7 @@ namespace Multimidia.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Cadastrar(NovoVideoInputModel videoInput)
+        public async Task<ActionResult<string>> Cadastrar(NovoVideoInputModel videoInput)
         {
             if (!ModelState.IsValid)
             {
@@ -87,6 +89,50 @@ namespace Multimidia.Api.Controllers
                 return Ok(new { Mensagem = "Video cadastrado com sucesso!" });
             }
             catch(Exception ex)
+            {
+                return BadRequest(new { Mensagem = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Editar([FromBody] Video model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+
+                await _videoRepository.Atualizar(model);
+
+                return Ok(new { Mensagem = "Video atualizado com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Mensagem = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Deletar([FromBody] Guid id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+
+                await _videoRepository.Deletar(id);
+
+                return Ok(new { Mensagem = "Video deletado com sucesso!" });
+            }
+            catch (Exception ex)
             {
                 return BadRequest(new { Mensagem = ex.Message });
             }

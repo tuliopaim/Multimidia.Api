@@ -5,7 +5,7 @@ using Multimidia.Api.Core.Models;
 using Multimidia.Api.Core.InputModels;
 using Multimidia.Api.Infrastructure.Repository;
 using Multimidia.Api.Core.Services;
-using Multimidia.Api.Core.ViewModel;
+using Multimidia.Api.Core.ViewModels;
 
 namespace Multimidia.Api.Controllers
 {
@@ -23,7 +23,7 @@ namespace Multimidia.Api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel model)
+        public async Task<ActionResult<UsuarioViewModel>> Authenticate([FromBody] LoginInputModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace Multimidia.Api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> Registrar([FromBody] RegisterInputModel model)
+        public async Task<ActionResult<string>> Registrar([FromBody] RegisterInputModel model)
         {
             if (!ModelState.IsValid)
             {

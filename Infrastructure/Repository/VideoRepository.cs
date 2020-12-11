@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Multimidia.Api.Core.Models;
-using Multimidia.Api.Core.ViewModel;
+using Multimidia.Api.Core.ViewModels;
 using Multimidia.Api.Data.Infrastructure;
 using Multimidia.Api.Infrastructure.Repository.Interfaces;
 using System;
@@ -54,6 +54,22 @@ namespace Multimidia.Api.Infrastructure.Repository
         public async Task CadastrarVideo(Video video)
         {
             _context.Videos.Add(video);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Atualizar(Video video)
+        {
+            _context.Update(video);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Deletar(Guid id)
+        {
+            var video = await _context.Videos.FindAsync(id);
+
+            _context.Videos.Remove(video);
 
             await _context.SaveChangesAsync();
         }
