@@ -31,6 +31,7 @@ namespace Multimidia.Api.Infrastructure.Repository
                 .Where(v => v.UsuarioId == idUsuario)
                 .Select(v => new VideoPartialViewModel 
                 {   
+                    Id = v.Id,
                     Nome = v.Nome, 
                     Sinopse = v.Categoria,
                     Descricao = v.Sinopse
@@ -44,6 +45,7 @@ namespace Multimidia.Api.Infrastructure.Repository
               .Where(v => v.UsuarioId == idUsuario && v.Categoria == categoria)
               .Select(v => new VideoPartialViewModel
               {
+                  Id = v.Id,
                   Nome = v.Nome,
                   Sinopse = v.Categoria,
                   Descricao = v.Sinopse
