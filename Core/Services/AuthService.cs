@@ -16,35 +16,18 @@ namespace Multimidia.Api.Core.Services
         public async Task<User> Autenticar(string username, string password)
         {
             // Recupera o usuário
-            var user = await RecuperarUsuario(username);
+            var user = await _userRepository.GetByUserName(username);
+
+            // Verifica se o usuário existe
+            if (user == null)
+                return null;
 
             //Verificar senha
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
-            user.isLoggedIn = true;
             return user;
         }
-
-        public async Task<bool> UsuarioEstaLogado(string username)
-        {
-            var user = await RecuperarUsuario(username);
-            return user.isLoggedIn ? true : false;
-        }
-
-        private async Task<User> RecuperarUsuario(string username)
-        {
-            var user = await _userRepository.GetByUserName(username);
-            if (user == null)
-                return null;
-            return user;
-        }
-
-        //public async Task<User> DeslogarUsuario(string username)
-        //{
-        //    var user = await RecuperarUsuario(username);
-        //    _userRepository.
-        //}
 
         public async Task<User> Criar(User user, string password)
         {

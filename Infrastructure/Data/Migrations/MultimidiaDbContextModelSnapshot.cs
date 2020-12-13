@@ -46,9 +46,6 @@ namespace Multimidia.Api.Migrations
                         .HasMaxLength(24)
                         .HasColumnType("nvarchar(24)");
 
-                    b.Property<bool>("isLoggedIn")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
