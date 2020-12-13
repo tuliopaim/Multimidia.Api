@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Multimidia.Api.Data.Infrastructure;
 
 namespace Multimidia.Api.Migrations
 {
     [DbContext(typeof(MultimidiaDbContext))]
-    partial class MultimidiaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201211074414_coluna-usuario-logado")]
+    partial class colunausuariologado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -3,15 +3,18 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Multimidia.Api.Data.Infrastructure;
+using Multimidia.Api.Infrastructure;
 
 namespace Multimidia.Api.Migrations
 {
     [DbContext(typeof(MultimidiaDbContext))]
-    partial class MultimidiaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201210233038_first-migration")]
+    partial class firstmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +49,6 @@ namespace Multimidia.Api.Migrations
                         .HasMaxLength(24)
                         .HasColumnType("nvarchar(24)");
 
-                    b.Property<bool>("isLoggedIn")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
@@ -65,6 +65,9 @@ namespace Multimidia.Api.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(64)
@@ -76,18 +79,14 @@ namespace Multimidia.Api.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Thumbnail64")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ThumbnailContentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<Guid?>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Video64")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoContentType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -101,9 +100,7 @@ namespace Multimidia.Api.Migrations
                 {
                     b.HasOne("Multimidia.Api.Core.Models.User", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsuarioId");
 
                     b.Navigation("Usuario");
                 });
