@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Multimidia.Api.Data.Infrastructure;
 
-namespace Multimidia.Api.Migrations
+namespace Multimidia.Api
 {
     [DbContext(typeof(MultimidiaDbContext))]
     partial class MultimidiaDbContextModelSnapshot : ModelSnapshot

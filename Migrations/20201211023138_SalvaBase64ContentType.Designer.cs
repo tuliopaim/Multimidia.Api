@@ -2,14 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Multimidia.Api.Data.Infrastructure;
 
-namespace Multimidia.Api.Migrations
+namespace Multimidia.Api
 {
     [DbContext(typeof(MultimidiaDbContext))]
-    [Migration("20201210030257_UsuarioIdGuid")]
-    partial class UsuarioIdGuid
+    [Migration("20201211023138_SalvaBase64ContentType")]
+    partial class SalvaBase64ContentType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,14 +78,18 @@ namespace Multimidia.Api.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Thumbnail64")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThumbnailContentType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Video64")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoContentType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Multimidia.Api.Data.Infrastructure;
 
-namespace Multimidia.Api.Migrations
+namespace Multimidia.Api
 {
     [DbContext(typeof(MultimidiaDbContext))]
     [Migration("20201211044323_CorrigeForeignUsuarioId")]

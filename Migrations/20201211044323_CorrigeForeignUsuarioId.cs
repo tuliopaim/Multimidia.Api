@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Multimidia.Api.Migrations
+namespace Multimidia.Api
 {
     public partial class CorrigeForeignUsuarioId : Migration
     {

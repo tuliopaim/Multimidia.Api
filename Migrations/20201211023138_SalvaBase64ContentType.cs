@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Multimidia.Api.Migrations
+namespace Multimidia.Api
 {
     public partial class SalvaBase64ContentType : Migration
     {

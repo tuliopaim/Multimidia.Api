@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Multimidia.Api.Data.Infrastructure;
+using Multimidia.Api.Infrastructure;
 
-namespace Multimidia.Api.Migrations
+namespace Multimidia.Api
 {
     [DbContext(typeof(MultimidiaDbContext))]
-    [Migration("20201211023138_SalvaBase64ContentType")]
-    partial class SalvaBase64ContentType
+    [Migration("20201210022241_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,8 +65,8 @@ namespace Multimidia.Api.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("IdUsuario")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -78,18 +79,14 @@ namespace Multimidia.Api.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Thumbnail64")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThumbnailContentType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Video64")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoContentType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
